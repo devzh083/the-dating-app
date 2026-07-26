@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "outDir": "./node_modules/.tsc-out"
+  },
+  "include": ["vite.config.ts"]
+}

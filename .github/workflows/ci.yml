@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    env:
+      # Only SECRET_KEY is required with no default in settings.py — everything
+      # else (DATABASE_URL, CORS, email, Razorpay, Cloudinary) falls back to a
+      # safe default, so CI runs against the zero-setup sqlite fallback.
+      SECRET_KEY: ci-test-secret-key-not-used-in-production
+      DEBUG: "True"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Django system check
+        run: python manage.py check
+
+      - name: Run tests
+        run: python manage.py test
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: front-end
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: front-end/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type-check & build
+        run: npm run build
+
+      - name: Run tests
+        run: npm test

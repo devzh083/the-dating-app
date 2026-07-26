@@ -1,0 +1,324 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== THEME TOKENS USED BY THE LANDING PAGE ===== */
+:root {
+  /* core colors */
+  --background: 0 0% 100%;
+  --foreground: 220 20% 10%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 220 20% 10%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 20% 10%;
+
+  /* primary + gradient colors */
+  --primary: 187 75% 45%;
+  --primary-foreground: 0 0% 100%;
+
+  --primary-start: 199 89% 48%;
+  --primary-end: 168 76% 42%;
+
+  --secondary: 200 20% 96%;
+  --secondary-foreground: 220 20% 10%;
+
+  --muted: 210 20% 96%;
+  --muted-foreground: 220 10% 50%;
+
+  --accent: 187 75% 95%;
+  --accent-foreground: 187 75% 35%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 220 15% 90%;
+  --input: 220 15% 90%;
+  --ring: 187 75% 45%;
+
+  --radius: 0.75rem;
+
+  /* extra tokens used in other components */
+  --pill-bg: 200 20% 97%;
+  --pill-bg-selected: 187 75% 45%;
+  --pill-border: 220 15% 88%;
+  --pill-border-selected: 187 75% 45%;
+
+  --chip-bg: 0 0% 100%;
+  --chip-bg-hover: 187 75% 97%;
+  --chip-bg-selected: 187 75% 95%;
+  --chip-border: 220 15% 88%;
+  --chip-border-selected: 187 75% 45%;
+
+  --progress-bg: 220 15% 92%;
+  --progress-fill: 187 75% 45%;
+
+  --slider-track: 220 15% 92%;
+  --slider-fill: 187 75% 45%;
+  --slider-thumb: 0 0% 100%;
+}
+
+/* optional dark mode tokens if you ever add .dark */
+.dark {
+  --background: 222 25% 8%;
+  --foreground: 210 40% 98%;
+
+  --card: 222 25% 10%;
+  --card-foreground: 210 40% 98%;
+
+  --popover: 222 25% 10%;
+  --popover-foreground: 210 40% 98%;
+
+  --primary: 187 75% 50%;
+  --primary-foreground: 222 25% 8%;
+
+  --secondary: 217 25% 17%;
+  --secondary-foreground: 210 40% 98%;
+
+  --muted: 217 25% 17%;
+  --muted-foreground: 215 20% 65%;
+
+  --accent: 187 40% 20%;
+  --accent-foreground: 187 75% 70%;
+
+  --destructive: 0 62% 30%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 217 25% 20%;
+  --input: 217 25% 20%;
+  --ring: 187 75% 50%;
+
+  --pill-bg: 217 25% 15%;
+  --pill-bg-selected: 187 75% 50%;
+  --pill-border: 217 25% 25%;
+  --pill-border-selected: 187 75% 50%;
+
+  --chip-bg: 217 25% 12%;
+  --chip-bg-hover: 187 30% 18%;
+  --chip-bg-selected: 187 40% 18%;
+  --chip-border: 217 25% 25%;
+  --chip-border-selected: 187 75% 50%;
+
+  --progress-bg: 217 25% 20%;
+  --progress-fill: 187 75% 50%;
+
+  --slider-track: 217 25% 20%;
+  --slider-fill: 187 75% 50%;
+  --slider-thumb: 0 0% 100%;
+}
+
+/* ===== GLOBAL RESETS ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont,
+    "Inter", sans-serif;
+  color: hsl(var(--foreground));
+  background-color: hsl(var(--background));
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* ===== YOUR EXISTING APP SHELL & HEADER STYLES ===== */
+
+/* Full-page app shell */
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f9fafb;
+}
+
+/* HEADER (top bar) */
+.site-header {
+  height: 64px;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.06);
+}
+
+.site-brand {
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  color: #111827;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.site-nav-link {
+  text-decoration: none;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.site-nav-link.active,
+.site-nav-link[aria-current="page"] {
+  color: #111827;
+  font-weight: 600;
+}
+
+/* header buttons */
+.login-pill {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: none;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.logout-pill {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: none;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.logout-pill:hover {
+  background: #dc2626;
+}
+
+/* Locked state card */
+.locked-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.locked-card {
+  background: #ffffff;
+  padding: 24px 26px;
+  border-radius: 20px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+  max-width: 400px;
+  text-align: center;
+}
+
+.locked-card h2 {
+  margin: 0 0 8px;
+}
+
+.locked-card p {
+  margin: 0 0 16px;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+/* Google login button */
+.google-login-btn {
+  width: 100%;
+  height: 44px;
+  margin-top: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  background: #1a73e8;
+  color: #fff;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.google-login-btn:hover {
+  background: #1669c1;
+}
+
+.google-login-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.google-icon {
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.datepicker {
+  background-color: white !important; /* Fixes transparency */
+  border: 1px solid #e5e7eb !important; /* gray-200 */
+  border-radius: 0.75rem !important; /* rounded-xl */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important; /* shadow-xl */
+  padding: 10px !important;
+  z-index: 9999 !important; /* Forces it above everything */
+  font-family: inherit !important;
+}
+
+/* Fix grid layout if broken */
+.datepicker-grid {
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr) !important;
+}
+
+/* Header Styling */
+.datepicker-controls {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 8px !important;
+}
+
+/* Day Hover Colors (Teal) */
+.datepicker-cell:hover:not(.disabled) {
+  background-color: #f0fdfa !important; /* teal-50 */
+  color: #0d9488 !important; /* teal-600 */
+  border-radius: 0.5rem !important;
+}
+
+/* Selected Day Color (Teal) */
+.datepicker-cell.selected,
+.datepicker-cell.selected:hover {
+  background-color: #14b8a6 !important; /* teal-500 */
+  color: white !important;
+  font-weight: 600 !important;
+  border-radius: 0.5rem !important;
+}
+
+/* Today's Date */
+.datepicker-cell.focused:not(.selected) {
+  background-color: #f3f4f6 !important; /* gray-100 */
+}

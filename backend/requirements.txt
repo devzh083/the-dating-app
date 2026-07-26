@@ -1,0 +1,34 @@
+Django==5.2.9
+
+# Django REST Framework
+djangorestframework==3.16.1
+django-filter==25.1
+django-cors-headers==4.8.0
+djangorestframework-simplejwt==5.5.1
+
+# Database (Postgres in production via Neon, sqlite fallback locally)
+dj-database-url==2.3.0
+psycopg2-binary==2.9.10
+
+# Realtime / WebSockets — in-memory channel layer, no Redis needed at this scale
+channels==4.3.1
+daphne==4.1.2
+
+# Environment & developer utilities
+python-decouple==3.8
+django-extensions==4.1
+
+requests==2.32.4
+razorpay==1.4.2
+# razorpay's SDK still imports pkg_resources, which modern setuptools no longer ships
+setuptools<81
+
+# Security / crypto (used by JWT, MySQL/Postgres TLS)
+cryptography==46.0.3
+PyJWT==2.10.1
+
+# Media handling
+pillow==11.3.0
+whitenoise==6.8.2
+django-cloudinary-storage==0.3.0
+cloudinary==1.41.0
