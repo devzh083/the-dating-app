@@ -218,6 +218,11 @@ ADMIN_PANEL_CONFIG = {
     'ACTION_LOG_RETENTION_DAYS': 365,
 }
 
+# Create logs directory if it doesn't exist
+LOGS_DIR = os.path.join(BASE_DIR, 'logs')
+if not os.path.exists(LOGS_DIR):
+    os.makedirs(LOGS_DIR)
+
 # Logging configuration
 LOGGING = {
     'version': 1,
@@ -232,7 +237,10 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': 'logs/admin_actions.log',
+            # Absolute path derived from BASE_DIR — a bare relative path here
+            # resolves against the process's cwd at runtime, which doesn't
+            # necessarily match where LOGS_DIR actually creates the folder.
+            'filename': os.path.join(LOGS_DIR, 'admin_actions.log'),
             'maxBytes': 1024 * 1024 * 15,  # 15MB
             'backupCount': 10,
             'formatter': 'verbose',
@@ -251,11 +259,6 @@ LOGGING = {
         },
     },
 }
-
-# Create logs directory if it doesn't exist
-LOGS_DIR = os.path.join(BASE_DIR, 'logs')
-if not os.path.exists(LOGS_DIR):
-    os.makedirs(LOGS_DIR)
 
 # Google OAuth
 GOOGLE_CLIENT_ID = config("GOOGLE_CLIENT_ID", default="")
